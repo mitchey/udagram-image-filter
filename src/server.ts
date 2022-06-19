@@ -30,7 +30,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   /**************************************************************************** */
 
   //! END @TODO1
-  app.get( "/filteredimage", async ( req, res ) => {
+  app.get( "/filteredimage", async ( req:express.Request, res:express.Response) => {
     let { image_url } = req.query
 
     if(!image_url){
@@ -38,7 +38,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     }
     console.log(image_url);
     const filteredpath = await filterImageFromURL(image_url)
-    res.sendFile(filteredpath)
+    res.status(200).sendFile(filteredpath)
     res.on("finish", () => deleteLocalFiles([filteredpath]))
   });
 
